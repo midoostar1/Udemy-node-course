@@ -1,16 +1,19 @@
+//importing the http core module
+const http = require('http');
 
-function outerFunction() {
-    let outerVariable = "I am from the outer function";
+//creating a server with node
+const server = http.createServer((req, res) => {
+  console.log(req.url, req.method, req.headers)
+
+  // setting header and writting some html to the response HEADER
+  res.setHeader('Content-Type', 'text/html')
+  res.write('<html>')
+  res.write('<head></head>')
+  res.write('<body><h1>Hello From Node</h1></body>')
+  res.write('<html>')
+  res.end();
   
-    function innerFunction() {
-      console.log(outerVariable);
-    }
-  
-    return innerFunction;
-  }
-  
-  // Create a closure by calling outerFunction and assigning the result to a variable
-  let closureFunction = outerFunction();
-  
-  // Call the closureFunction, which still has access to outerVariable
-  closureFunction(); // Output: I am from the outer function
+})
+
+//listening on port 3000
+server.listen(3000);
